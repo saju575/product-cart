@@ -4,6 +4,7 @@ const createHttpError = require("http-errors");
 const { errorResponse } = require("./controllers/response/response.controller");
 const productRouter = require("./routes/product.route");
 const orderRouter = require("./routes/order.route");
+const promoRouter = require("./routes/promo.router");
 
 /* 
     making express app
@@ -23,6 +24,9 @@ app.use("/api/products", productRouter);
 
 /* order router */
 app.use("/api/orders", orderRouter);
+
+/* promos */
+app.use("/api/promos", promoRouter);
 
 /*
     Client error handler
