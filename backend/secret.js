@@ -5,6 +5,11 @@ require("dotenv").config();
 exports.SERVER_PORT = process.env.SERVER_PORT || 5000;
 
 /* 
+    jwt access key
+*/
+exports.JWT_ACCESS_KEY = process.env.JWT_ACCESS_KEY;
+
+/* 
     export mongodb url
 */
 exports.MONGODB_URL = process.env.MONGODB_URL;

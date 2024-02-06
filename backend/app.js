@@ -1,10 +1,12 @@
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const createHttpError = require("http-errors");
 const { errorResponse } = require("./controllers/response/response.controller");
 const productRouter = require("./routes/product.route");
 const orderRouter = require("./routes/order.route");
 const promoRouter = require("./routes/promo.router");
+const userRouter = require("./routes/user.route");
 
 /* 
     making express app
@@ -14,10 +16,15 @@ const app = express();
 /* 
     default middlewares
 */
-app.use(cors());
-
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 /* product router */
 app.use("/api/products", productRouter);
@@ -27,6 +34,9 @@ app.use("/api/orders", orderRouter);
 
 /* promos */
 app.use("/api/promos", promoRouter);
+
+/* user */
+app.use("/api/users", userRouter);
 
 /*
     Client error handler
