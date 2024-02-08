@@ -4,16 +4,17 @@ const {
   getAllOrders,
   updateOrder,
 } = require("../controllers/order/order.controller");
+const { isAuthenticated } = require("../middlewares/auth.middleware");
 
 const orderRouter = express.Router();
 
 /* get all orders */
-orderRouter.get("/", getAllOrders);
+orderRouter.get("/", isAuthenticated, getAllOrders);
 
 /* create orders */
-orderRouter.post("/create", createOrder);
+orderRouter.post("/create", isAuthenticated, createOrder);
 
 /* order update */
-orderRouter.put("/update/:orderId", updateOrder);
+orderRouter.put("/update/:orderId", isAuthenticated, updateOrder);
 
 module.exports = orderRouter;

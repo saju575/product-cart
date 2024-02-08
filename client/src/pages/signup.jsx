@@ -1,16 +1,44 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useRegisterMutation } from "../redux/features/auth/authApi";
 
 const Signup = () => {
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [signup, { isError }] = useRegisterMutation();
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const previousPath = location.state?.from || "/";
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    if (phone === "" || password === "") {
+      return;
+    }
+    try {
+      await signup({ phone, password }).unwrap();
+
+      navigate(previousPath);
+    } catch (error) {
+      return;
+    }
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="p-4 rounded bg-white w-[350px]">
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" onSubmit={handleSignup}>
           <div>
             <label>Phone Number</label>
             <input
               name="phone"
               type="text"
               className="w-full border outline-none"
+              required
+              value={phone}
+              onChange={(e) => setPhone(() => e.target.value)}
             />
           </div>
           <div>
@@ -19,6 +47,9 @@ const Signup = () => {
               name="password"
               type="password"
               className="w-full border outline-none"
+              required
+              value={password}
+              onChange={(e) => setPassword(() => e.target.value)}
             />
           </div>
           <div className="flex justify-center">
@@ -28,6 +59,12 @@ const Signup = () => {
             >
               Sign Up
             </button>
+          </div>
+
+          <div className="h-4">
+            {isError && (
+              <p className="text-red-500 text-sm">Invalid phone or password</p>
+            )}
           </div>
 
           <div className="flex justify-between">

@@ -1,4 +1,37 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../redux/features/auth/authApi";
+
 const AdminLogin = () => {
+  const [isLoginError, setIsLoginError] = useState(false);
+  const [phone, setPhone] = useState("");
+
+  const [password, setPassword] = useState("");
+  const [login, { isError }] = useLoginMutation();
+
+  const navigate = useNavigate();
+
+  const handleSubmitLogin = async (e) => {
+    e.preventDefault();
+    setIsLoginError(false);
+    if (phone === "" || password === "") {
+      return;
+    }
+    try {
+      const data = await login({ phone, password }).unwrap();
+      console.log(data);
+      if (data?.payload?.user?.role === "admin") {
+        navigate("/admin");
+      } else {
+        setIsLoginError(true);
+        return;
+      }
+      // navigate(previousPath);
+    } catch (error) {
+      return;
+    }
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div>
@@ -6,13 +39,15 @@ const AdminLogin = () => {
           <h1 className="text-3xl text-center mb-4">Admin Panel</h1>
 
           <div className="p-4 rounded bg-white">
-            <form className="flex flex-col gap-4">
+            <form className="flex flex-col gap-4" onSubmit={handleSubmitLogin}>
               <div>
                 <label>User ID</label>
                 <input
                   name="phone"
                   type="text"
                   className="w-full border outline-none"
+                  onChange={(e) => setPhone(e.target.value)}
+                  value={phone}
                 />
               </div>
               <div>
@@ -21,6 +56,8 @@ const AdminLogin = () => {
                   name="password"
                   type="password"
                   className="w-full border outline-none"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                 />
               </div>
               <div className="flex justify-center">
@@ -30,6 +67,14 @@ const AdminLogin = () => {
                 >
                   Sign In
                 </button>
+              </div>
+              <div className="h-4">
+                {isError ||
+                  (isLoginError && (
+                    <p className="text-red-500 text-sm">
+                      Invalid phone or password for Admin
+                    </p>
+                  ))}
               </div>
             </form>
           </div>
