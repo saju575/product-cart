@@ -1,4 +1,21 @@
+import { useSelector } from "react-redux";
+
 const OrderSummery = () => {
+  const { items } = useSelector((state) => state.cart);
+
+  const calculateSubtotal = (items) => {
+    return items.reduce(
+      (total, item) =>
+        total +
+        (item?.main_price - (item?.main_price * item?.discount_rate) / 100) *
+          item.quantity,
+      0
+    );
+  };
+
+  const calculateShippingCharge = (items) => {
+    return items.reduce((total, item) => total + item?.shipping_charge, 0);
+  };
   return (
     <div className="w-full lg:w-[30%] ">
       <div className="bg-white text-[#4d4d4d] px-3 max-h-max rounded">
@@ -9,7 +26,7 @@ const OrderSummery = () => {
         <div className="py-4 space-y-3">
           <div className="flex justify-between">
             <p>Subtotal(2 items)</p>
-            <p>৳ 4000</p>
+            <p>৳ {calculateSubtotal(items)}</p>
           </div>
           <div className="flex justify-between">
             <p>Discount</p>
@@ -17,7 +34,7 @@ const OrderSummery = () => {
           </div>
           <div className="flex justify-between">
             <p>Shipping Charge</p>
-            <p>৳ 200</p>
+            <p>৳ {calculateShippingCharge(items)}</p>
           </div>
           <div className="flex justify-between">
             <p>Wallet Debit</p>

@@ -1,9 +1,20 @@
+import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoLogInOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { setSearchName } from "../../redux/features/filter/filterSlice";
 const Navbar = () => {
+  const { name } = useSelector((state) => state.filter);
+  const { items } = useSelector((state) => state.cart);
+  const [searchText, setSearchText] = useState(name);
+  const dispatch = useDispatch();
+  const handleSearch = (e) => {
+    e.preventDefault();
+    dispatch(setSearchName(searchText));
+  };
   return (
     <nav className="bg-white">
       <div className="container mx-auto px-2 py-2">
@@ -39,12 +50,14 @@ const Navbar = () => {
             ></path>{" "}
           </svg>
           {/* search input */}
-          <form>
+          <form onSubmit={handleSearch} onBlur={handleSearch}>
             <div className="relative">
               <input
                 type="text"
                 placeholder="Search"
                 className="border-b border-gray-300 w-full py-2 pl-8 pr-4 focus:outline-none focus:border-blue-500"
+                value={searchText}
+                onChange={(e) => setSearchText(() => e.target.value)}
               />
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <CiSearch className="text-gray-400" />
@@ -57,7 +70,7 @@ const Navbar = () => {
               <FiShoppingCart />
               <span>Cart</span>
               <span className="bg-[#fff700]  rounded-full h-6 w-6 flex justify-center items-center">
-                0
+                {items?.length}
               </span>
             </Link>
             <div>

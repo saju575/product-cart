@@ -1,11 +1,14 @@
+import { useSelector } from "react-redux";
 import Item from "./item";
 
 const CartItems = () => {
+  const { items } = useSelector((state) => state.cart);
+
   return (
     <div className="w-full lg:w-[70%] bg-white rounded">
       <div className="flex flex-col gap-2">
-        {[1, 2, 3].map((item) => (
-          <Item key={item} />
+        {items?.map((item) => (
+          <Item key={item._id} item={item} />
         ))}
       </div>
       <form>
