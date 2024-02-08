@@ -1,0 +1,14 @@
+/* Show Add to Cart Button on Hover */
+.card:hover .add_to_cart_btn {
+  display: block;
+}
+/* .add_to_cart_btn:hover .cardContent {
+  opacity: 0;
+} */
+.card:hover .cardContent {
+  opacity: 0;
+}
+
+.cardContent {
+  transition: all 0.3s ease;
+}
