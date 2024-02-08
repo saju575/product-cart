@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
@@ -8,14 +9,22 @@ const Sidebar = () => {
         <div className="px-6 py-4">
           <ul className="space-y-1">
             <li className="p-2">
-              <span onClick={() => setOpen(!open)}>Promotion</span>
+              <span onClick={() => setOpen(!open)} className="cursor-pointer">
+                Promotion
+              </span>
               <ul className={`${open ? "block" : "hidden"}`}>
-                <li className="p-1">Promo Codes</li>
+                <li className="p-1">
+                  <Link to={"/admin/promolist"}>Promo Codes</Link>
+                </li>
                 <li className="p-1">Add Promo Code</li>
               </ul>
             </li>
-            <li className="p-2">Orders</li>
-            <li className="p-2">Products</li>
+            <li className="p-2">
+              <Link to={"/admin/orderlist"}>Orders</Link>
+            </li>
+            <li className="p-2">
+              <Link to={"/admin/productlist"}>Products</Link>
+            </li>
           </ul>
         </div>
       </div>

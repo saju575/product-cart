@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Login = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -30,7 +32,9 @@ const Login = () => {
 
           <div className="flex justify-between">
             <p>No Account?</p>
-            <p className="text-[#fff700] underline">Sign Up</p>
+            <Link to={"/signup"} className="text-[#fff700] underline">
+              Sign Up
+            </Link>
           </div>
         </form>
       </div>

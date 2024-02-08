@@ -2,6 +2,7 @@ import { CiSearch } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoLogInOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav className="bg-white">
@@ -52,21 +53,24 @@ const Navbar = () => {
           </form>
 
           <div className="flex gap-4 items-center">
-            <div className="flex gap-1 items-center">
+            <Link to={"/cart"} className="flex gap-1 items-center">
               <FiShoppingCart />
               <span>Cart</span>
               <span className="bg-[#fff700]  rounded-full h-6 w-6 flex justify-center items-center">
                 0
               </span>
-            </div>
+            </Link>
             <div>
               <FaRegUser />
             </div>
 
-            <div className="flex gap-1 items-center cursor-pointer py-1 px-2 rounded-sm bg-slate-100">
+            <Link
+              to={"/login"}
+              className="flex gap-1 items-center cursor-pointer py-1 px-2 rounded-sm bg-slate-100"
+            >
               <IoLogInOutline />
               Login
-            </div>
+            </Link>
           </div>
         </div>
       </div>

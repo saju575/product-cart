@@ -1,17 +1,15 @@
+import { Outlet } from "react-router-dom";
 import Sidebar from "../components/sidebar/sidebar";
 import Topbar from "../components/topbar/topbar";
-import PromoList from "../pages/admin/subpage/promoList";
 
 const AdminLayout = () => {
   return (
-    <div>
+    <div className="bg-[#fafafa]">
       <Topbar />
       <div className="flex">
         <Sidebar />
         <div style={{ width: "calc(100% - 250px)" }}>
-          {/* <OrderList /> */}
-          {/* <ProductList /> */}
-          <PromoList />
+          <Outlet />
         </div>
       </div>
     </div>
