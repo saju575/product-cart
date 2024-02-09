@@ -1,7 +1,13 @@
+import { useNavigate } from "react-router-dom";
+
 /* eslint-disable react/prop-types */
 const AdminProductCard = ({ item }) => {
+  const navigate = useNavigate();
   return (
-    <div>
+    <div
+      className="cursor-pointer"
+      onClick={() => navigate(`/admin/editproduct/${item._id}`)}
+    >
       <div
         className={`w-[150px] sm:w-[200px] rounded overflow-hidden shadow relative `}
       >

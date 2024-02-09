@@ -11,9 +11,9 @@ const Home = () => {
   if (isLoading) {
     content = <div>Loading</div>;
   } else if (!isLoading && !isError && data?.payload?.length > 0) {
-    content = data.payload.map((item) => (
-      <ProductCard key={item._id} item={item} />
-    ));
+    content = data.payload
+      .filter((i) => i.status === "active")
+      .map((item) => <ProductCard key={item._id} item={item} />);
   }
   return (
     <div>

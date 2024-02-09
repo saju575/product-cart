@@ -8,11 +8,12 @@ import EditPromo from "../pages/admin/subpage/editPromo";
 import OrderList from "../pages/admin/subpage/orderlist";
 import ProductList from "../pages/admin/subpage/productList";
 import PromoList from "../pages/admin/subpage/promoList";
-import UpdateNewProduct from "../pages/admin/subpage/updateNewProduct";
+import UpdateProduct from "../pages/admin/subpage/updateProduct";
 import Cart from "../pages/cart";
 import Home from "../pages/home";
 import Login from "../pages/login";
 import Signup from "../pages/signup";
+import AdminRouteProtect from "./adminRouteProtect";
 
 export const router = createBrowserRouter([
   {
@@ -43,7 +44,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminLayout />,
+    element: (
+      <AdminRouteProtect>
+        <AdminLayout />
+      </AdminRouteProtect>
+    ),
     children: [
       {
         path: "/admin",
@@ -75,7 +80,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/admin/editproduct/:productId",
-        element: <UpdateNewProduct />,
+        element: <UpdateProduct />,
       },
     ],
   },
