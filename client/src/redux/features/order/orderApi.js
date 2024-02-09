@@ -13,17 +13,17 @@ export const authApi = apiSlice.injectEndpoints({
     }),
 
     getAllOrders: builder.query({
-      query: () => ({
-        url: "/orders",
+      query: ({ status }) => ({
+        url: status ? `/orders?status=${status}` : "/orders",
         method: "GET",
       }),
       providesTags: ["Orders"],
     }),
     updateOrder: builder.mutation({
-      query: ({ orderId, status }) => ({
-        url: `/orders/${orderId}`,
+      query: ({ id, data }) => ({
+        url: `/orders/update/${id}`,
         method: "PUT",
-        body: { status },
+        body: data,
       }),
       invalidatesTags: ["Orders"],
     }),

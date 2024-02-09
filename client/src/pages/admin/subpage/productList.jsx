@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import AdminProductCard from "../../../components/adminProductCard/adminProductCard";
 import { useGetProductsQuery } from "../../../redux/features/products/productsApi";
 
@@ -15,12 +16,12 @@ const ProductList = () => {
   return (
     <div className="py-8 px-4">
       <div>
-        <button
-          type="button"
-          className="shadow-sm bg-white px-5 py-1 rounded-2xl"
+        <Link
+          to={"/admin/createnewproduct"}
+          className="shadow-sm bg-white px-5 py-1 rounded-2xl text-center"
         >
           Add New Product
-        </button>
+        </Link>
       </div>
 
       <div className="mt-4">

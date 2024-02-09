@@ -1,6 +1,22 @@
+import { useSelector } from "react-redux";
+import { useGetAllOrdersQuery } from "../../redux/features/order/orderApi";
 import OrderRow from "./orderRow";
 
 const OrderTable = () => {
+  const { orderStatus } = useSelector((state) => state.filter);
+
+  const { data, isLoading, isError } = useGetAllOrdersQuery({
+    status: orderStatus,
+  });
+
+  let content = null;
+  if (isLoading) {
+    content = <div>Loading</div>;
+  } else if (!isLoading && !isError && data?.payload?.length > 0) {
+    content = data?.payload?.map((item, index) => (
+      <OrderRow key={index} index={index + 1} item={item} />
+    ));
+  }
   return (
     <div className="overflow-x-auto">
       <table className="text-center w-[1100px]">
@@ -15,9 +31,7 @@ const OrderTable = () => {
           </tr>
         </tbody>
       </table>
-      {[1, 2, 3, 4].map((item, index) => (
-        <OrderRow key={item} index={index} />
-      ))}
+      {content}
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   name: "",
+  orderStatus: "",
 };
 
 const filterSlice = createSlice({
@@ -11,9 +12,12 @@ const filterSlice = createSlice({
     setSearchName: (state, action) => {
       state.name = action.payload;
     },
+    setOrderStatus: (state, action) => {
+      state.orderStatus = action.payload;
+    },
   },
 });
 
 export default filterSlice.reducer;
 
-export const { setSearchName } = filterSlice.actions;
+export const { setSearchName, setOrderStatus } = filterSlice.actions;

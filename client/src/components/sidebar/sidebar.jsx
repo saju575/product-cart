@@ -16,7 +16,9 @@ const Sidebar = () => {
                 <li className="p-1">
                   <Link to={"/admin/promolist"}>Promo Codes</Link>
                 </li>
-                <li className="p-1">Add Promo Code</li>
+                <li className="p-1">
+                  <Link to={"/admin/createpromo"}>Add Promo Code</Link>
+                </li>
               </ul>
             </li>
             <li className="p-2">

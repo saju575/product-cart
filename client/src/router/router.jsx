@@ -2,9 +2,13 @@ import { createBrowserRouter } from "react-router-dom";
 import AdminLayout from "../layout/adminLayout";
 import ClientLayout from "../layout/clientLayout";
 import AdminLogin from "../pages/admin/adminLogin";
+import CreateNewProduct from "../pages/admin/subpage/createNewProduct";
+import CreatePromo from "../pages/admin/subpage/createPromo";
+import EditPromo from "../pages/admin/subpage/editPromo";
 import OrderList from "../pages/admin/subpage/orderlist";
 import ProductList from "../pages/admin/subpage/productList";
 import PromoList from "../pages/admin/subpage/promoList";
+import UpdateNewProduct from "../pages/admin/subpage/updateNewProduct";
 import Cart from "../pages/cart";
 import Home from "../pages/home";
 import Login from "../pages/login";
@@ -56,6 +60,22 @@ export const router = createBrowserRouter([
       {
         path: "/admin/productlist",
         element: <ProductList />,
+      },
+      {
+        path: "/admin/createpromo",
+        element: <CreatePromo />,
+      },
+      {
+        path: "/admin/editpromo/:promoId",
+        element: <EditPromo />,
+      },
+      {
+        path: "/admin/createnewproduct",
+        element: <CreateNewProduct />,
+      },
+      {
+        path: "/admin/editproduct/:productId",
+        element: <UpdateNewProduct />,
       },
     ],
   },

@@ -62,6 +62,23 @@ export const productsApi = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    createPromo: builder.mutation({
+      query: (data) => ({
+        url: `/promos/create`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Promos"],
+    }),
+
+    getPromo: builder.query({
+      query: (id) => ({
+        url: `/promos/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Promos"],
+    }),
   }),
 });
 
@@ -70,4 +87,6 @@ export const {
   useGetPromosQuery,
   useUpdatePromoMutation,
   useDecrasePromoMutation,
+  useCreatePromoMutation,
+  useGetPromoQuery,
 } = productsApi;
