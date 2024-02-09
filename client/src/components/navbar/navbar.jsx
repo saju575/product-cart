@@ -6,19 +6,32 @@ import { FiShoppingCart } from "react-icons/fi";
 import { IoLogInOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useLogoutMutation } from "../../redux/features/auth/authApi";
 import { setSearchName } from "../../redux/features/filter/filterSlice";
 import { useGetUserQuery } from "../../redux/features/user/userApi";
 const Navbar = () => {
+  const [showPopup, setShowPopup] = useState(false);
   const { name } = useSelector((state) => state.filter);
   const { items } = useSelector((state) => state.cart);
   const { userData } = useSelector((state) => state.user);
   const [searchText, setSearchText] = useState(name);
   const dispatch = useDispatch();
 
+  const [logout] = useLogoutMutation();
   const {} = useGetUserQuery();
   const handleSearch = (e) => {
     e.preventDefault();
     dispatch(setSearchName(searchText));
+  };
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await logout().unwrap();
+      setShowPopup(false);
+    } catch (error) {
+      //
+    }
   };
   return (
     <nav className="bg-white">
@@ -81,8 +94,22 @@ const Navbar = () => {
               </span>
             </Link>
             {userData?.phone && (
-              <div>
-                <FaRegUser />
+              <div className="relative">
+                <FaRegUser
+                  className="cursor-pointer"
+                  onClick={() => setShowPopup(!showPopup)}
+                />
+                {showPopup && (
+                  <div className="p-4 absolute right-0 bottom-400 w-60 bg-white shadow-lg flex flex-col gap-4">
+                    <p>{userData?.phone}</p>
+                    <p
+                      onClick={handleLogout}
+                      className="flex gap-1 items-center justify-center cursor-pointer py-1 px-2 rounded-sm bg-slate-100 w-24"
+                    >
+                      Logout
+                    </p>
+                  </div>
+                )}
               </div>
             )}
 

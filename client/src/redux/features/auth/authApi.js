@@ -1,5 +1,5 @@
 import { apiSlice } from "../api/apiSlice";
-import { setUserData } from "../user/userSlice";
+import { clearUserData, setUserData } from "../user/userSlice";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -36,7 +36,23 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    logout: builder.mutation({
+      query: () => ({
+        url: "/users/logout",
+        method: "POST",
+      }),
+      onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
+        try {
+          await queryFulfilled;
+          dispatch(clearUserData());
+        } catch (error) {
+          // do nothing
+        }
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
+  authApi;
