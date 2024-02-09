@@ -24,7 +24,7 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 /* product router */
 app.use("/api/products", productRouter);
