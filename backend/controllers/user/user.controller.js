@@ -36,8 +36,8 @@ exports.signup = async (req, res, next) => {
     res.cookie("accesstoken", accessToken, {
       maxAge: 60 * 60 * 24 * 120 * 1000,
       httpOnly: true,
-      // sameSite: "None",
-      // secure: true,
+      sameSite: "None",
+      secure: true,
       path: "/",
     });
 
@@ -83,8 +83,8 @@ exports.login = async (req, res, next) => {
     res.cookie("accesstoken", accessToken, {
       maxAge: 60 * 60 * 24 * 120 * 1000,
       httpOnly: true,
-      // sameSite: "None",
-      // secure: true,
+      sameSite: "None",
+      secure: true,
       path: "/",
     });
 
@@ -104,7 +104,11 @@ exports.login = async (req, res, next) => {
 /* logout */
 exports.logout = async (req, res, next) => {
   try {
-    res.clearCookie("accesstoken");
+    res.clearCookie("accesstoken", {
+      sameSite: "None",
+      secure: true,
+      path: "/",
+    });
     return successResponse(res, {
       message: "Logout successfully",
     });
